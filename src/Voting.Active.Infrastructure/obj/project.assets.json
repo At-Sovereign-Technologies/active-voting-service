@@ -1,0 +1,111 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0": {
+      "Voting.Active.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Voting.Active.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Voting.Active.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Voting.Active.Application.dll": {}
+        }
+      },
+      "Voting.Active.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Voting.Active.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Voting.Active.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Voting.Active.Application/1.0.0": {
+      "type": "project",
+      "path": "../Voting.Active.Application/Voting.Active.Application.csproj",
+      "msbuildProject": "../Voting.Active.Application/Voting.Active.Application.csproj"
+    },
+    "Voting.Active.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Voting.Active.Domain/Voting.Active.Domain.csproj",
+      "msbuildProject": "../Voting.Active.Domain/Voting.Active.Domain.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0": [
+      "Voting.Active.Application >= 1.0.0",
+      "Voting.Active.Domain >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "/home/juan-martin/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/home/juan-martin/SelloLegitimo/voting-active-service/src/Voting.Active.Infrastructure/Voting.Active.Infrastructure.csproj",
+      "projectName": "Voting.Active.Infrastructure",
+      "projectPath": "/home/juan-martin/SelloLegitimo/voting-active-service/src/Voting.Active.Infrastructure/Voting.Active.Infrastructure.csproj",
+      "packagesPath": "/home/juan-martin/.nuget/packages/",
+      "outputPath": "/home/juan-martin/SelloLegitimo/voting-active-service/src/Voting.Active.Infrastructure/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/home/juan-martin/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "projectReferences": {
+            "/home/juan-martin/SelloLegitimo/voting-active-service/src/Voting.Active.Application/Voting.Active.Application.csproj": {
+              "projectPath": "/home/juan-martin/SelloLegitimo/voting-active-service/src/Voting.Active.Application/Voting.Active.Application.csproj"
+            },
+            "/home/juan-martin/SelloLegitimo/voting-active-service/src/Voting.Active.Domain/Voting.Active.Domain.csproj": {
+              "projectPath": "/home/juan-martin/SelloLegitimo/voting-active-service/src/Voting.Active.Domain/Voting.Active.Domain.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net8.0": {
+        "targetAlias": "net8.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.126/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

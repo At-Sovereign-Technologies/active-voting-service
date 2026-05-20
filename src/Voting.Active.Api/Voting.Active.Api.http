@@ -1,0 +1,6 @@
+@Voting.Active.Api_HostAddress = http://localhost:5239
+
+GET {{Voting.Active.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
