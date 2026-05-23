@@ -1,7 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Voting.Active.Domain\Voting.Active.Domain.csproj" />
+    <ProjectReference Include="..\Voting.Active.Domain\Voting.Active.Domain.csproj" SetTargetFramework="TargetFramework=net8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+    <PackageReference Include="MediatR" Version="14.1.0" />
   </ItemGroup>
 
   <PropertyGroup>
