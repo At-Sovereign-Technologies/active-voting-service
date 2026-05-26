@@ -41,6 +41,10 @@ public class VotingController : ControllerBase
             .Where(c => c.ElectionId == election.Id)
             .ToListAsync();
 
+        var voters = await _context.Voters
+            .Where(v => v.ElectionId == election.Id)
+            .ToListAsync();
+
         var votingPlace = await _context.VotingPlaces
             .FirstOrDefaultAsync();
 
@@ -71,6 +75,13 @@ public class VotingController : ControllerBase
                 Document = c.Document,
                 Party = c.Party,
                 PhotoUrl = c.PhotoUrl
+            }).ToList(),
+
+            Voters = voters.Select(v => new VoterDto
+            {
+                Id = v.Id,
+                Name = v.Name,
+                Document = v.Document
             }).ToList(),
 
             VotingPlace = new VotingPlaceDto

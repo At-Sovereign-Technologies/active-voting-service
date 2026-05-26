@@ -6,5 +6,7 @@ public class VotingConfigurationDto
 
     public List<CandidateDto> Candidates { get; set; } = [];
 
+    public List<VoterDto> Voters { get; set; } = [];
+
     public VotingPlaceDto VotingPlace { get; set; } = default!;
 }

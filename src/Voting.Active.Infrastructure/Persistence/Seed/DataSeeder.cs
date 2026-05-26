@@ -6,6 +6,8 @@ namespace Voting.Active.Infrastructure.Persistence.Seed;
 
 public static class DataSeeder
 {
+    private const string DemoTerminalPublicKey = "ac5eff87b69c511c6fbae77e127de867aca6756711ce15f0c8df0f42e911b14a";
+
     public static async Task SeedAsync(ApplicationDbContext context)
     {
         if (await context.Elections.AnyAsync())
@@ -20,7 +22,7 @@ public static class DataSeeder
             ElectionType = "presidential",
             StartDate = DateTime.UtcNow,
             EndDate = DateTime.UtcNow.AddDays(1),
-            };
+        };
 
         var votingPlace = new VotingPlace
         {
@@ -31,21 +33,42 @@ public static class DataSeeder
             Status = OperationalStatus.Active
         };
 
-        var table1 = new VotingTable
+        var tables = new List<VotingTable>
         {
-            Id = Guid.NewGuid(),
-            Code = "MESA-001",
-            VotingPlaceId = votingPlace.Id,
-            Status = OperationalStatus.Active
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Code = "MESA-001",
+                VotingPlaceId = votingPlace.Id,
+                Status = OperationalStatus.Active
+            },
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Code = "MESA-002",
+                VotingPlaceId = votingPlace.Id,
+                Status = OperationalStatus.Active
+            }
         };
 
-        var terminal1 = new VotingTerminal
+        var terminals = new List<VotingTerminal>
         {
-            Id = Guid.NewGuid(),
-            Secret = Guid.NewGuid().ToString(),
-            PublicKey = "PUBLIC_KEY_TEST",
-            VotingTableId = table1.Id,
-            Status = OperationalStatus.Active
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Secret = "demo-terminal-1-secret",
+                PublicKey = DemoTerminalPublicKey,
+                VotingTableId = tables[0].Id,
+                Status = OperationalStatus.Active
+            },
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Secret = "demo-terminal-2-secret",
+                PublicKey = DemoTerminalPublicKey,
+                VotingTableId = tables[1].Id,
+                Status = OperationalStatus.Active
+            }
         };
 
         var candidate1 = new Candidate
@@ -68,33 +91,45 @@ public static class DataSeeder
             ElectionId = election.Id
         };
 
-        var voter1 = new Voter
+        var candidate3 = new Candidate
         {
             Id = Guid.NewGuid(),
-            Name = "Juan Gomez",
-            Document = "100001",
+            Name = "Ricardo Valencia",
+            Document = "555111222",
+            Party = "Coalicion Gamma",
+            PhotoUrl = "https://photo.test/candidate3.png",
             ElectionId = election.Id
         };
 
-        var voter2 = new Voter
+        var candidate4 = new Candidate
         {
             Id = Guid.NewGuid(),
-            Name = "Maria Lopez",
-            Document = "100002",
+            Name = "Ana Torres",
+            Document = "333888777",
+            Party = "Movimiento Delta",
+            PhotoUrl = "https://photo.test/candidate4.png",
             ElectionId = election.Id
+        };
+
+        var voters = new List<Voter>
+        {
+            new() { Id = Guid.NewGuid(), Name = "Juan Gomez", Document = "100001", ElectionId = election.Id },
+            new() { Id = Guid.NewGuid(), Name = "Maria Lopez", Document = "100002", ElectionId = election.Id },
+            new() { Id = Guid.NewGuid(), Name = "Andres Mora", Document = "100003", ElectionId = election.Id },
+            new() { Id = Guid.NewGuid(), Name = "Sara Beltran", Document = "100004", ElectionId = election.Id }
         };
 
         await context.Elections.AddAsync(election);
 
         await context.VotingPlaces.AddAsync(votingPlace);
 
-        await context.VotingTables.AddAsync(table1);
+        await context.VotingTables.AddRangeAsync(tables);
 
-        await context.VotingTerminals.AddAsync(terminal1);
+        await context.VotingTerminals.AddRangeAsync(terminals);
 
-        await context.Candidates.AddRangeAsync(candidate1, candidate2);
+        await context.Candidates.AddRangeAsync(candidate1, candidate2, candidate3, candidate4);
 
-        await context.Voters.AddRangeAsync(voter1, voter2);
+        await context.Voters.AddRangeAsync(voters);
 
         await context.SaveChangesAsync();
     }

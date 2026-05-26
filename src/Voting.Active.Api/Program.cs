@@ -3,7 +3,9 @@ using Voting.Active.Infrastructure.Persistence;
 using Voting.Active.Infrastructure.Persistence.Seed;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Npgsql;
 using System.Text;
 using Microsoft.OpenApi.Models;
 
@@ -102,12 +104,42 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider
-        .GetRequiredService<ApplicationDbContext>();
-
-    await DataSeeder.SeedAsync(context);
-}
+await EnsureDatabaseReadyAsync(app);
 
 app.Run();
+
+static async Task EnsureDatabaseReadyAsync(WebApplication app)
+{
+    const int maxAttempts = 10;
+    var delay = TimeSpan.FromSeconds(3);
+
+    for (var attempt = 1; attempt <= maxAttempts; attempt++)
+    {
+        try
+        {
+            using var scope = app.Services.CreateScope();
+            var context = scope.ServiceProvider
+                .GetRequiredService<ApplicationDbContext>();
+
+            await context.Database.MigrateAsync();
+            await DataSeeder.SeedAsync(context);
+            return;
+        }
+        catch (Exception ex) when (ex is NpgsqlException or TimeoutException or InvalidOperationException)
+        {
+            if (attempt == maxAttempts)
+            {
+                throw;
+            }
+
+            app.Logger.LogWarning(
+                ex,
+                "Base de datos no disponible todavía. Reintentando migración/seed en {Delay} (intento {Attempt}/{MaxAttempts}).",
+                delay,
+                attempt,
+                maxAttempts);
+
+            await Task.Delay(delay);
+        }
+    }
+}
