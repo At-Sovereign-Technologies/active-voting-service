@@ -107,6 +107,7 @@ using (var scope = app.Services.CreateScope())
     var context = scope.ServiceProvider
         .GetRequiredService<ApplicationDbContext>();
 
+    await context.Database.EnsureCreatedAsync();
     await DataSeeder.SeedAsync(context);
 }
 
