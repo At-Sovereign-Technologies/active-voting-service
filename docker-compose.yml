@@ -11,7 +11,7 @@ services:
       ConnectionStrings__Postgres: Host=postgres;Port=5432;Database=voting_db;Username=postgres;Password=postgres
 
     ports:
-      - "8080:8080"
+      - "8089:8080"
 
     depends_on:
       - postgres
@@ -28,7 +28,7 @@ services:
       POSTGRES_PASSWORD: postgres
 
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
     volumes:
       - postgres_data:/var/lib/postgresql/data

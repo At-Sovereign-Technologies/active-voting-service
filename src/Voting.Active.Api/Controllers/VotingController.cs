@@ -208,8 +208,6 @@ public class VotingController : ControllerBase
 
             VotingPlaceId = terminal.VotingTable.VotingPlaceId,
 
-            VoterId = voter.Id,
-
             CandidateId = candidate.Id,
 
             Signature = request.Signature,
@@ -288,8 +286,6 @@ public class VotingController : ControllerBase
             VoteId = v.Id,
 
             CandidateName = v.Candidate.Name,
-
-            VoterId = v.VoterId,
 
             TerminalId = v.VotingTerminalId,
 

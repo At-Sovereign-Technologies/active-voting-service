@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Voting.Active.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e3d15aadf3caa4e0b6182d0b283397370f4f1061")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+63a036e5ba63190906650cc921d84f983e92f0e3")]
 [assembly: System.Reflection.AssemblyProductAttribute("Voting.Active.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Voting.Active.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

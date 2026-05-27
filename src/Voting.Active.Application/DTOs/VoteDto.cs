@@ -6,8 +6,6 @@ public class VoteDto
 
     public string CandidateName { get; set; } = default!;
 
-    public Guid VoterId { get; set; }
-
     public Guid TerminalId { get; set; }
 
     public Guid TableId { get; set; }

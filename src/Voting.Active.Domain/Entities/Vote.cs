@@ -16,10 +16,6 @@ public class Vote : BaseEntity
 
     public VotingPlace VotingPlace { get; set; } = default!;
 
-    public Guid VoterId { get; set; }
-
-    public Voter Voter { get; set; } = default!;
-
     public Guid CandidateId { get; set; }
 
     public Candidate Candidate { get; set; } = default!;

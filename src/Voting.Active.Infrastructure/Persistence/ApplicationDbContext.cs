@@ -24,6 +24,8 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Vote> Votes => Set<Vote>();
 
+    public DbSet<Juror> Jurors => Set<Juror>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -130,17 +132,30 @@ public class ApplicationDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict);
         });
 
+        modelBuilder.Entity<Juror>(entity =>
+        {
+            entity.ToTable("jurors");
+
+            entity.Property(j => j.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.Property(j => j.Document)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            entity.HasOne(j => j.Election)
+                .WithMany()
+                .HasForeignKey(j => j.ElectionId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
         modelBuilder.Entity<Vote>(entity =>
         {
             entity.ToTable("votes");
 
             entity.Property(v => v.Signature)
                 .IsRequired();
-
-            entity.HasOne(v => v.Voter)
-                .WithMany()
-                .HasForeignKey(v => v.VoterId)
-                .OnDelete(DeleteBehavior.Restrict);
 
             entity.HasOne(v => v.Candidate)
                 .WithMany()
@@ -161,9 +176,6 @@ public class ApplicationDbContext : DbContext
                 .WithMany()
                 .HasForeignKey(v => v.VotingPlaceId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            entity.HasIndex(v => v.VoterId)
-                .IsUnique();
         });
     }
 }
