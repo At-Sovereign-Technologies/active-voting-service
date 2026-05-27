@@ -24,6 +24,8 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Vote> Votes => Set<Vote>();
 
+    public DbSet<Juror> Jurors => Set<Juror>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -127,6 +129,24 @@ public class ApplicationDbContext : DbContext
             entity.HasOne(v => v.VotingTable)
                 .WithMany()
                 .HasForeignKey(v => v.VotingTableId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<Juror>(entity =>
+        {
+            entity.ToTable("jurors");
+
+            entity.Property(j => j.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.Property(j => j.Document)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            entity.HasOne(j => j.Election)
+                .WithMany()
+                .HasForeignKey(j => j.ElectionId)
                 .OnDelete(DeleteBehavior.Restrict);
         });
 
