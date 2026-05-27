@@ -93,7 +93,7 @@ public class CastVoteTests : IDisposable
         await _controller.CastVote(request);
 
         var votoGuardado = await _context.Votes
-            .FirstOrDefaultAsync(v => v.VoterId == _voterId);
+            .FirstOrDefaultAsync(v => v.VotingTerminalId == _terminalId);
 
         Assert.NotNull(votoGuardado);
         Assert.Equal(_candidateId, votoGuardado.CandidateId);
@@ -204,7 +204,7 @@ public class CastVoteTests : IDisposable
 
         await _controller.CastVote(request);
 
-        var voto = await _context.Votes.FirstOrDefaultAsync(v => v.VoterId == _voterId);
+        var voto = await _context.Votes.FirstOrDefaultAsync(v => v.VotingTerminalId == _terminalId);
         Assert.NotNull(voto);
         Assert.Equal(firmaEsperada, voto.Signature);
     }
@@ -217,7 +217,7 @@ public class CastVoteTests : IDisposable
         await _controller.CastVote(RequestValido()); // segundo intento
 
         var totalVotos = await _context.Votes
-            .CountAsync(v => v.VoterId == _voterId);
+            .CountAsync(v => v.VotingTerminalId == _terminalId);
 
         Assert.Equal(1, totalVotos);
     }

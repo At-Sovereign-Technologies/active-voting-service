@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "R7vPm5TYZ2LbaXENF0c6/nGADjFtlFNQQzFzwui9VDkFRs3POIpExwqYJBBl8JC/y8PJoTfZ8H9Vv9taxYUodw==",
+  "dgSpecHash": "0NHaokIvmd8z2DcEvz3I1FPkaT3/qDc66f4tuAQPSWyL7NMgzqgP2rtHW/sjPfoqo7HZ6V86te/yASd9jiHBOw==",
   "success": true,
   "projectFilePath": "/home/juan-martin/SelloLegitimo/voting-active-service/src/Voting.Active.Application/Voting.Active.Application.csproj",
   "expectedPackageFiles": [

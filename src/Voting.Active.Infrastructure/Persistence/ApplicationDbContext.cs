@@ -137,11 +137,6 @@ public class ApplicationDbContext : DbContext
             entity.Property(v => v.Signature)
                 .IsRequired();
 
-            entity.HasOne(v => v.Voter)
-                .WithMany()
-                .HasForeignKey(v => v.VoterId)
-                .OnDelete(DeleteBehavior.Restrict);
-
             entity.HasOne(v => v.Candidate)
                 .WithMany()
                 .HasForeignKey(v => v.CandidateId)
@@ -162,8 +157,6 @@ public class ApplicationDbContext : DbContext
                 .HasForeignKey(v => v.VotingPlaceId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            entity.HasIndex(v => v.VoterId)
-                .IsUnique();
         });
     }
 }
